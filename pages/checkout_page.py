@@ -1,5 +1,5 @@
 from pages.base import Base
-from Locators.checkout import Basket
+from Locators.checkout import Checkout
 from data.assertions import Assertions
 from playwright.sync_api import Page
 
@@ -9,11 +9,17 @@ class CheckoutPage(Base):
         super().__init__(page)
         self.assertion = Assertions(page)
 
-    def checkout(self): 
-        self.click(Basket.CHECKOUT_BTN)
-        self.input(Basket.FIRST_NAME, "Ivan")
-        self.input(Basket.LAST_NAME, "Ivanov")
-        self.input(Basket.ZIP, "123456")
-        self.click(Basket.CNT_BTN)
-        self.click(Basket.FINISH_BTN)
-        self.assertion.have_text(Basket.FINAL_TEXT, "Checkout: Complete!", "no")
+    def write_info(self, first_name, last_name, zip_code): 
+        self.input(Checkout.FIRST_NAME, first_name)
+        self.input(Checkout.LAST_NAME, last_name)
+        self.input(Checkout.ZIP, zip_code)
+
+    def click_continue(self):
+        self.click(Checkout.CNT_BTN)
+
+    def check_message_error(self, message):
+        self.assertion.contain_text(Checkout.ERROR_MESSAGE, message, "Checkout info is entered correctly!")
+    
+    def check_finish(self):
+        self.click(Checkout.FINISH_BTN)
+        self.assertion.have_text(Checkout.FINAL_TEXT, "Checkout: Complete!", "no")

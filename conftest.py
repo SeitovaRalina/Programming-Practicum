@@ -5,5 +5,6 @@ load_dotenv()
 
 pytest_plugins = [
     'fixtures.page',
-    'fixtures.user_auth'
+    'fixtures.user_auth',
+    'fixtures.product_buy'
 ]
