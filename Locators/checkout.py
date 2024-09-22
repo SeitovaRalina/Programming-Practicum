@@ -1,4 +1,4 @@
-class Basket:
+class Checkout:
     CHECKOUT_BTN = "[data-test='checkout']"
     FIRST_NAME = "[data-test='firstName']"
     LAST_NAME = "[data-test='lastName']"

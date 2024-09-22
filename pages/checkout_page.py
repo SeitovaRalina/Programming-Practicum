@@ -1,18 +1,13 @@
 from pages.base import Base
-from Locators.basket_page import Basket
-from Locators.market_page import Market
+from Locators.checkout import Basket
 from data.assertions import Assertions
 from playwright.sync_api import Page
 
 
-class MarketPage(Base):
+class CheckoutPage(Base):
     def __init__(self, page: Page) -> None:
         super().__init__(page)
         self.assertion = Assertions(page)
-
-    def add_to_cart(self): 
-        self.click_element_by_index(Market.ADD_TO_CART, 0)
-        self.click(Market.FOLLOW_TO_BASKET)
 
     def checkout(self): 
         self.click(Basket.CHECKOUT_BTN)

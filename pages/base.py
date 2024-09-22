@@ -1,3 +1,4 @@
+from typing import List
 from playwright.sync_api import Page, TimeoutError, Response, expect
 from data.environment import host
 

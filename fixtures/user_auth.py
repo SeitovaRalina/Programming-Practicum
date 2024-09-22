@@ -1,8 +1,9 @@
 import pytest
-from pages.main_page import Main
+from pages.login_page import LoginPage
+from data.constants import Constants
 
 
 @pytest.fixture(scope='class')
-def user_login(browser):
-    m = Main(browser)
-    m.user_login()
+def user_auth(browser):
+    p = LoginPage(browser)
+    p.login_user(Constants.login, Constants.password)
