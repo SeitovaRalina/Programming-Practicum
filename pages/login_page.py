@@ -13,7 +13,9 @@ class LoginPage(Base):
         self.open("")
         self.input(Login.USERNAME_INPUT, username)
         self.input(Login.PASSWORD_INPUT, password)
+        
+    def click_login(self):
         self.click(Login.LOGIN_BTN)
     
     def check_message_error(self, message):
-        self.assertion.contain_text(Login.ERROR_MESSAGE, message, "True Loginorization")
+        self.assertion.contain_text(Login.ERROR_MESSAGE, message, "True Authorization")

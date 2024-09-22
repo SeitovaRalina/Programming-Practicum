@@ -13,13 +13,12 @@ class MarketPage(Base):
     def check_logo(self):
         self.assertion.check_presence(Market.LOGO, "The logo is not 'Product'")
 
-    def add_items_to_cart(self, item_ids): 
-        if isinstance(item_ids, int):
-            item_ids = [item_ids]
+    def add_item_to_cart(self, name):
+        formatted_name = str.lower(name).replace(" ", "-")
+        self.click(Market.ADD_TO_CART_BTN.replace('item-name', formatted_name))
 
-        for id in item_ids:
-            self.click_element_by_index(Market.ADD_TO_CART, id)
-        self.click(Market.FOLLOW_TO_CART)
+    def click_go_to_cart(self):
+        self.click(Market.FOLLOW_TO_CART_BTN)
 
     def sort_items(self, value):
         self.click(Market.ITEMS_SORTER)

@@ -9,12 +9,14 @@ class TestLogin:
     @pytest.mark.parametrize("username, password, error_message", testing_data)
     def test_user_login_fail(self, browser, username, password, error_message):
         login_page = LoginPage(browser)
+
         login_page.login_user(username, password)
+        login_page.click_login()
         
         login_page.check_message_error(error_message)
 
     @pytest.mark.usefixtures('user_auth')
-    def test_user_login(self, browser):
+    def test_user_login_success(self, browser):
         market_page = MarketPage(browser)
         
         market_page.check_logo()

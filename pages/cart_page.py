@@ -9,12 +9,9 @@ class CartPage(Base):
         super().__init__(page)
         self.assertion = Assertions(page)
 
-    def remove_items_from_cart(self, item_ids):
-        if isinstance(item_ids, int):
-            item_ids = [item_ids]
-
-        for id in item_ids:
-            self.click_element_by_index(Cart.REMOVE_BTN, id)
+    def remove_item_from_cart(self, name):
+        formatted_name = str.lower(name).replace(" ", "-")
+        self.click(Cart.REMOVE_BTN.replace('item-name', formatted_name))
 
     def check_logo(self):
         self.assertion.check_presence(Cart.LOGO, "The logo is not 'Your Cart'")
@@ -23,15 +20,11 @@ class CartPage(Base):
         len_items = len(self.wait_for_all_elements(Cart.CART_ITEM))
         self.assertion.check_equals(len_items, count, f"There should be {len_items} items in the cart")
 
-    def check_items_in_cart(self, names):
-        if isinstance(names, str):
-            names = [names]
-        items = self.wait_for_all_elements(Cart.ITEM_NAME)
-        for i, item in enumerate(items):
-            self.assertion.check_equals(item.text_content(), names[i], "The item name is not correct")
-    
-    def click_to_market_button(self):
-        self.click(Cart.MARKET_BTN)
+    def check_item_name_in_cart(self, item_name):
+        self.assertion.contain_text(Cart.ITEM_NAME, item_name, "The item name is not correct")
 
-    def click_checkout_button(self):
+    def click_go_to_market(self):
+        self.click(Cart.FOLLOW_TO_MARKET_BTN)
+
+    def click_checkout(self):
         self.click(Cart.CHECKOUT_BTN)

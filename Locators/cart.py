@@ -4,6 +4,6 @@ class Cart:
 
     ITEM_NAME = "[data-test='inventory-item-name']"
 
-    REMOVE_BTN = "button.btn"
+    REMOVE_BTN = "[data-test='remove-item-name']"
     CHECKOUT_BTN = "[data-test='checkout']"
-    MARKET_BTN = "[data-test='continue-shopping']"
+    FOLLOW_TO_MARKET_BTN = "[data-test='continue-shopping']"
