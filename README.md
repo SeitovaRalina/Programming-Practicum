@@ -57,11 +57,17 @@
     python -m venv venv
     venv\Scripts\activate
 ```
-3. Установите все необходимые зависимости
+3. Создайте файл .env в корневой директории и добавить значения переменным: 
+```
+ENV=prod, 
+AUTH_LOGIN = standard_user, 
+AUTH_PASSWORD = secret_sauce
+```
+4. Установите все необходимые зависимости
 ```bash
     pip install -r requirements.txt
 ```
-4. Установите браузеры для Playwright
+5. Установите браузеры для Playwright
 ```bash
     playwright install
 ```
