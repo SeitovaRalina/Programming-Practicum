@@ -14,12 +14,13 @@ on:
         description: "Set environment, e.g. `ENV=prod or ENV=shot`"
       arguments:
         required: false
-        default: "-m practice"
-        description: "pytest additional arguments, e.g. `-m practice`"
+        default: "-m regression"
+        description: "pytest additional arguments, e.g. `-m regression`"
 
 
 jobs:
   playwright:
+    name: Regression tests
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright/python:v1.47.0-jammy
@@ -40,12 +41,12 @@ jobs:
       - name: Install dependencies
         run: python3 -m pip install -r requirements.txt
       - run: |
-          if [ "${{github.event_name}}" = "schedule" ]; then
-            export args="-m regression"
-            export ENV="prod"
-          else
+          if [ "${{github.event_name}}" = "workflow_dispatch" ]; then
             export ENV='${{github.event.inputs.environment}}'
             export args='${{github.event.inputs.arguments}}'
+          else
+            export ENV="prod"
+            export args="-m regression"
           fi
-            echo "::set-output name=env_name::${ENV:-prod}"
+            echo "env_name::${ENV:-prod}"
             pytest ${args} --bn ${{ matrix.browser }}
