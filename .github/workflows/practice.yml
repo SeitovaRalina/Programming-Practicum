@@ -1,0 +1,22 @@
+name: Automated API tests using Postman CLI
+
+on:
+    push:
+      branches:
+        - 'lab2'
+    pull_request:
+      types: [opened, reopened]
+
+jobs:
+  automated-api-tests:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Postman CLI
+        run: |
+          powershell.exe -NoProfile -InputFormat None -ExecutionPolicy AllSigned -Command "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://dl-cli.pstmn.io/install/win64.ps1'))"
+      - name: Login to Postman CLI
+        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+      - name: Run API tests
+        run: |
+          postman collection run "38125094-fbc2569d-accc-4059-b80a-a7aa8d221ccd" -e "38125094-c13f5c0c-e0b1-4fc5-9cc0-85b4ca528721"
