@@ -11,10 +11,11 @@ pytestmark = [
     allure.suite("create_booking")
 ]
 
+@allure.title('Запросы на создание бронирования')
 class TestCreateBooking:
-    @allure.title('Запрос на создание бронирования c валидными параметрами')
     @pytest.mark.parametrize('request_parameters',
-                             load_data('create_booking_data', 'valid_data'))
+                             load_data('create_booking_data', 'valid_data'),
+                             ids=load_data('create_booking_data', 'valid_ids'))
     @pytest.mark.asyncio
     async def test_create_booking_valid_parameters(
         self, restful_booker_api: RestfulBookerApi, request_parameters: BookingModel
@@ -25,9 +26,9 @@ class TestCreateBooking:
         await response.json_schema_should_be_valid('create_booking_schema')
         await response.have_value_in_response_parameter(['booking', 'firstname'], request_parameters.firstname)
 
-    @allure.title('Запрос на создание бронирования c невалидными параметрами')
     @pytest.mark.parametrize('request_parameters',
-                             load_data('create_booking_data', 'invalid_data'))
+                             load_data('create_booking_data', 'invalid_data'),
+                             ids=load_data('create_booking_data', 'invalid_ids'))
     @pytest.mark.asyncio
     async def test_create_booking_invalid_parameters(
         self, restful_booker_api: RestfulBookerApi, request_parameters: BookingModel

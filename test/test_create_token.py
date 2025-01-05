@@ -10,7 +10,8 @@ pytestmark = [allure.parent_suite("restful_booker_api"),
 @allure.title('Запросы на создание токена аутентификации')
 class TestCreateToken:
     @pytest.mark.parametrize('request_parameters',
-                             load_data('create_token_data', 'valid_data'))
+                             load_data('create_token_data', 'valid_data'),
+                             ids=load_data('create_token_data', 'valid_ids'))
     @pytest.mark.asyncio
     async def test_create_token_valid_parameters(self, restful_booker_api, request_parameters):
         response = await restful_booker_api.create_auth_token(request_parameters)
@@ -19,7 +20,8 @@ class TestCreateToken:
         await response.json_schema_should_be_valid('token_schema', 'valid_schema')
 
     @pytest.mark.parametrize('request_parameters',
-                             load_data('create_token_data', 'invalid_data'))
+                             load_data('create_token_data', 'invalid_data'),
+                             ids=load_data('create_token_data', 'invalid_ids'))
     @pytest.mark.asyncio
     async def test_create_token_invalid_parameters(self, restful_booker_api, request_parameters):
         response = await restful_booker_api.create_auth_token(request_parameters)
