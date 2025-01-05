@@ -15,5 +15,5 @@ schema = {
         },
         "additionalneeds": {"type": "string"}
     },
-    "required": ["firstname", "lastname", "totalprice", "depositpaid", "bookingdates", "additionalneeds"]
+    "required": ["firstname", "lastname", "totalprice", "depositpaid", "bookingdates"]
 }
