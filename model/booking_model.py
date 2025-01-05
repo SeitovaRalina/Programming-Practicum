@@ -15,14 +15,14 @@ class BookingModel:
 
     def to_dict(self):
         data = asdict(self)
+        result = {key: value for key, value in data.items() if value is not None}
 
         bookingdates = {}
         if self.checkin:
-            bookingdates["checkin"] = self.checkin.isoformat()
+            bookingdates["checkin"] = self.checkin.isoformat() if type(self.checkin) is date else self.checkin
         if self.checkout:
-            bookingdates["checkout"] = self.checkout.isoformat()
-        
-        result = {key: value for key, value in data.items() if value is not None}
+            bookingdates["checkout"] = self.checkout.isoformat() if type(self.checkout) is date else self.checkout
+
         if bookingdates:
             result["bookingdates"] = bookingdates
         
