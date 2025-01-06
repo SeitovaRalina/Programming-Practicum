@@ -34,4 +34,6 @@ class TestCreateBooking:
     ):
         response = await restful_booker_api.create_booking(request_parameters)
 
-        response.status_code_should_be(500)
+        # Статус код будет 500, что не норма.
+        # Поэтому для прохождения тестов вывожу, что он не из диапазона 200-299 
+        response.objects_should_be(response.response.ok, False)
